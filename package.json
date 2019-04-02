@@ -1,0 +1,16 @@
+{
+  "name": "mongoapp",
+  "version": "1.0.0",
+  "author": "DenisSychev",
+  "license": "ISC",
+  "scripts": {
+    "test": "test"
+  },
+  "dependencies": {
+    "express": "^4.16.4",
+    "body-parser": "^1.18.3",
+    "mongodb": "^3.2.2",
+    "mongoose": "^5.4.20",
+    "cors": "^2.8.5"
+  }
+}
