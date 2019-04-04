@@ -1,19 +1,17 @@
 const mongoose = require("mongoose");
-const CONNECTION_URI = process.env.MONGODB_URI || 'mongodb://localhost:27017/vsnsitedb';
-const PORT = process.env.PORT || 3000;
 const express = require("express");
-const jsonParser = express.json();
 const cors = require("cors");
 const app = express();
-app.use(cors());
+const jsonParser = express.json();
 
 const Publication = require('./models/publication');
 
+app.use(cors());
 
-mongoose.connect(CONNECTION_URI, { useNewUrlParser: true }, function (err) {
+mongoose.connect("mongodb://localhost:27017/testdb", { useNewUrlParser: true }, function (err) {
     if (err) return console.log(err);
-    app.listen(PORT, function () {
-        console.log(`Сервер ожидает подключения по порту ${PORT}...`);
+    app.listen(3000, function () {
+        console.log("Сервер ожидает подключения...");
     });
 });
 
@@ -40,12 +38,20 @@ app.post("/api/publications", jsonParser, function (req, res) {
 
     if (!req.body) return res.sendStatus(400);
 
+    const userId = req.body.userid;
     const pubTitle = req.body.title;
     const pubText = req.body.text;
+    const img = req.body.substrate.img;
+    const alt = req.body.substrate.alt;
 
     const publication = new Publication({
+        userid: userId,
         title: pubTitle,
-        text: pubText
+        text: pubText,
+        substrate: {
+            img: img,
+            alt: alt
+        }
     });
 
     publication.save(function (err) {
