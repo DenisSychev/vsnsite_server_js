@@ -3,6 +3,9 @@ const Schema = mongoose.Schema;
 
 const Publication = new Schema(
     {
+        userid: {
+            type: String
+        },
         title: {
             type: String,
             required: true,
@@ -10,7 +13,11 @@ const Publication = new Schema(
         },
         text: {
             type: String
-        }
+        },
+        substrate: {
+            img: { type: String },
+            alt: { type: String }
+        },
     },
     {
         versionKey: false
