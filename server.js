@@ -1,17 +1,19 @@
 const mongoose = require("mongoose");
+const connection_uri = process.env.MONGO_URI || 'mongodb://localhost:27017/vsnsitedb';
+const port = process.env.PORT || 3000;
 const express = require("express");
 const cors = require("cors");
-const app = express();
 const jsonParser = express.json();
+
+const app = express();
+app.use(cors());
 
 const Publication = require('./models/publication');
 
-app.use(cors());
-
-mongoose.connect("mongodb://localhost:27017/testdb", { useNewUrlParser: true }, function (err) {
+mongoose.connect(connection_uri, { useNewUrlParser: true }, function (err) {
     if (err) return console.log(err);
-    app.listen(3000, function () {
-        console.log("Сервер ожидает подключения...");
+    app.listen(port, function () {
+        console.log(`Сервер ожидает подключения. Порт ${port}`);
     });
 });
 
